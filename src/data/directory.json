@@ -3,9 +3,9 @@
   "extractedAt": "2026-07-21T10:48:53.357Z",
   "counts": {
     "total": 198,
-    "hosts": 9,
+    "hosts": 8,
     "attendees": 180,
-    "guests": 7,
+    "guests": 8,
     "homeOffice": 2
   },
   "profiles": [
@@ -39,7 +39,7 @@
     {
       "id": "justin-slocum-4",
       "name": "Justin Slocum",
-      "group": "Hosts",
+      "group": "Other Guests",
       "state": "TX",
       "image": "/images/directory/004-justin-slocum.webp",
       "linkedinUrl": "https://www.linkedin.com/in/justin-slocum-its-afs/",
