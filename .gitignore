@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.vercel/
+.DS_Store
+work/
+outputs/
+public/images/current-directory.webp
+*.log
+.env
+.env.*
+!.env.example
