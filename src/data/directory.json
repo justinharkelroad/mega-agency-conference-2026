@@ -2,9 +2,10 @@
   "sourceUrl": "https://megaagencyconference.com/directory/",
   "extractedAt": "2026-07-21T10:48:53.357Z",
   "counts": {
-    "total": 198,
+    "total": 199,
     "hosts": 8,
-    "attendees": 188,
+    "attendees": 187,
+    "vendors": 2,
     "homeOffice": 2
   },
   "profiles": [
@@ -38,7 +39,8 @@
     {
       "id": "justin-slocum-4",
       "name": "Justin Slocum",
-      "group": "Attendees",
+      "group": "Vendors",
+      "company": "Agency For Sale",
       "state": "TX",
       "image": "/images/directory/004-justin-slocum.webp",
       "linkedinUrl": "https://www.linkedin.com/in/justin-slocum-its-afs/",
@@ -1789,6 +1791,16 @@
       "image": "/images/directory/198-ryan-dunn.webp",
       "linkedinUrl": "https://www.linkedin.com/in/ryan-dunn-b374a613/",
       "sourceImageUrl": "https://mlz9xzqslv2u.i.optimole.com/w:432/h:432/q:mauto/f:best/https://www.megaagencyconference.com/wp-content/uploads/2025/05/1565893620990.jpeg"
+    },
+    {
+      "id": "brett-schickler-199",
+      "name": "Brett Schickler",
+      "group": "Vendors",
+      "company": "Ricochet",
+      "state": "",
+      "image": "/images/directory/199-brett-schickler.png",
+      "linkedinUrl": null,
+      "sourceImageUrl": null
     }
   ]
 }

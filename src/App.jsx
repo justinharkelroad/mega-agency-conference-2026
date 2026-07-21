@@ -358,6 +358,7 @@ function SavannahMoment() {
 const directoryGroups = [
   { value: "Hosts", label: "Hosts" },
   { value: "Attendees", label: "Attendees" },
+  { value: "Vendors", label: "Vendors" },
   { value: "Home Office Guests", label: "Home Office" },
   { value: "all", label: "Everyone" },
 ];
@@ -373,7 +374,9 @@ function ProfileImage({ profile }) {
   return (
     <img
       src={profile.image}
-      alt={`${profile.name}, ${profile.group.toLowerCase()} from ${profile.state}`}
+      alt={profile.company
+        ? `${profile.name}, vendor with ${profile.company}`
+        : `${profile.name}, ${profile.group.toLowerCase()} from ${profile.state}`}
       loading="lazy"
       decoding="async"
       onError={() => setFailed(true)}
@@ -389,7 +392,9 @@ function Directory() {
   const [visibleLimit, setVisibleLimit] = useState(24);
 
   const states = useMemo(
-    () => [...new Set(directoryData.profiles.map((profile) => profile.state))].sort(),
+    () => [...new Set(directoryData.profiles
+      .map((profile) => profile.state)
+      .filter((stateCode) => /^[A-Z]{2}$/.test(stateCode)))].sort(),
     [],
   );
   const letters = useMemo(
@@ -492,9 +497,9 @@ function Directory() {
               >
                 <div className="profile-photo"><ProfileImage profile={profile} /></div>
                 <div className="profile-card-body">
-                  <div><h3>{profile.name}</h3><p>{profile.group}</p></div>
+                  <div><h3>{profile.name}</h3><p>{profile.company ? `Vendor · ${profile.company}` : profile.group}</p></div>
                   <div className="profile-card-actions">
-                    <span><MapPin size={14} weight="fill" />{profile.state}</span>
+                    {profile.state && <span><MapPin size={14} weight="fill" />{profile.state}</span>}
                     {profile.linkedinUrl && (
                       <a href={profile.linkedinUrl} target="_blank" rel="noreferrer" aria-label={`Open ${profile.name} on LinkedIn`}>
                         <LinkedinLogo size={18} weight="fill" />
