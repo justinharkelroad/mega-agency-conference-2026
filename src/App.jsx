@@ -348,6 +348,7 @@ function SavannahMoment() {
           <span>Tuesday evening</span>
           <strong>Riverboat dinner cruise</strong>
           <span>6:00 pm to 9:00 pm</span>
+          <span className="moment-sponsor-credit">Sponsored by Agency for Sale, All Recruiting, Wintrust &amp; EverQuote</span>
         </div>
       </motion.div>
     </section>

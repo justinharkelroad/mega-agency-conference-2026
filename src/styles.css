@@ -736,6 +736,14 @@ p {
   font-size: 1.1rem;
 }
 
+.moment-detail .moment-sponsor-credit {
+  margin-top: 0.75rem;
+  color: var(--accent);
+  font-size: 0.86rem;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
 .directory-section {
   padding: clamp(7rem, 11vw, 11rem) 0;
   overflow: hidden;
