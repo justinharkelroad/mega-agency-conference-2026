@@ -356,11 +356,11 @@ function SavannahMoment() {
 }
 
 const directoryGroups = [
-  { value: "all", label: "Everyone" },
   { value: "Hosts", label: "Hosts" },
   { value: "Attendees", label: "Attendees" },
   { value: "Other Guests", label: "Other guests" },
-  { value: "Home Office Guests", label: "Home office" },
+  { value: "Home Office Guests", label: "Home Office" },
+  { value: "all", label: "Everyone" },
 ];
 
 function ProfileImage({ profile }) {
@@ -384,7 +384,7 @@ function ProfileImage({ profile }) {
 
 function Directory() {
   const [query, setQuery] = useState("");
-  const [group, setGroup] = useState("all");
+  const [group, setGroup] = useState("Hosts");
   const [state, setState] = useState("all");
   const [letter, setLetter] = useState("all");
   const [visibleLimit, setVisibleLimit] = useState(24);
@@ -417,10 +417,10 @@ function Directory() {
   }, [group, letter, query, state]);
 
   const visibleProfiles = filteredProfiles.slice(0, visibleLimit);
-  const hasFilters = query || group !== "all" || state !== "all" || letter !== "all";
+  const hasFilters = query || group !== "Hosts" || state !== "all" || letter !== "all";
   const clearFilters = () => {
     setQuery("");
-    setGroup("all");
+    setGroup("Hosts");
     setState("all");
     setLetter("all");
   };
