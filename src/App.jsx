@@ -203,7 +203,7 @@ function Hero({ onRegister }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
         >
-          Three days of candid ideas, trusted partners, and the Allstate agents shaping what comes next.
+          Three days of candid ideas, trusted partners, and the agents shaping what comes next.
         </motion.p>
         <motion.div
           className="hero-actions"
@@ -220,7 +220,7 @@ function Hero({ onRegister }) {
       <div className="hero-details page-shell">
         <div><CalendarBlank size={20} /><span><strong>September 21-23</strong>2026</span></div>
         <div><MapPin size={20} /><span><strong>Plant Riverside District</strong>Savannah, Georgia</span></div>
-        <div><Compass size={20} /><span><strong>For Allstate agency owners</strong>Useful by design</span></div>
+        <div><Compass size={20} /><span><strong>For agents</strong>Useful by design</span></div>
       </div>
     </section>
   );
@@ -248,7 +248,7 @@ function Intro() {
         viewport={{ once: true, amount: 0.4 }}
         transition={{ duration: 0.7, delay: 0.1 }}
       >
-        <p>Fewer sales pitches. Better conversations. Mega brings Allstate agency owners and the partners they trust into one focused room.</p>
+        <p>Fewer sales pitches. Better conversations. Mega brings agents and the partners they trust into one focused room.</p>
         <div className="intro-stat"><strong>3</strong><span>days in Savannah</span></div>
         <div className="intro-stat"><strong>1</strong><span>high-value community</span></div>
       </motion.div>
