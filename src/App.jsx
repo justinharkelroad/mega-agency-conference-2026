@@ -358,7 +358,6 @@ function SavannahMoment() {
 const directoryGroups = [
   { value: "Hosts", label: "Hosts" },
   { value: "Attendees", label: "Attendees" },
-  { value: "Other Guests", label: "Other guests" },
   { value: "Home Office Guests", label: "Home Office" },
   { value: "all", label: "Everyone" },
 ];

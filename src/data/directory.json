@@ -4,8 +4,7 @@
   "counts": {
     "total": 198,
     "hosts": 8,
-    "attendees": 180,
-    "guests": 8,
+    "attendees": 188,
     "homeOffice": 2
   },
   "profiles": [
@@ -39,7 +38,7 @@
     {
       "id": "justin-slocum-4",
       "name": "Justin Slocum",
-      "group": "Other Guests",
+      "group": "Attendees",
       "state": "TX",
       "image": "/images/directory/004-justin-slocum.webp",
       "linkedinUrl": "https://www.linkedin.com/in/justin-slocum-its-afs/",
@@ -1713,7 +1712,7 @@
     {
       "id": "bill-vien-190",
       "name": "Bill Vien",
-      "group": "Other Guests",
+      "group": "Attendees",
       "state": "VT",
       "image": "/images/directory/190-bill-vien.webp",
       "linkedinUrl": "https://www.linkedin.com/in/bill-vien-96683633/",
@@ -1722,7 +1721,7 @@
     {
       "id": "jackie-maxwell-191",
       "name": "Jackie Maxwell",
-      "group": "Other Guests",
+      "group": "Attendees",
       "state": "TX",
       "image": "/images/directory/191-jackie-maxwell.jpg",
       "linkedinUrl": "https://www.linkedin.com/in/jaquelyn-maxwell-a5b3a9353/",
@@ -1731,7 +1730,7 @@
     {
       "id": "justin-harkelroad-192",
       "name": "Justin Harkelroad",
-      "group": "Other Guests",
+      "group": "Attendees",
       "state": "IN",
       "image": "/images/directory/192-justin-harkelroad.webp",
       "linkedinUrl": "https://www.linkedin.com/in/justinhark/",
@@ -1740,7 +1739,7 @@
     {
       "id": "kristin-kasel-193",
       "name": "Kristin Kasel",
-      "group": "Other Guests",
+      "group": "Attendees",
       "state": "WA",
       "image": "/images/directory/193-kristin-kasel.jpg",
       "linkedinUrl": "https://www.linkedin.com/in/kristin-kasel-5452174/",
@@ -1749,7 +1748,7 @@
     {
       "id": "michael-burke-194",
       "name": "Michael Burke",
-      "group": "Other Guests",
+      "group": "Attendees",
       "state": "FL",
       "image": "/images/directory/194-michael-burke.webp",
       "linkedinUrl": "https://www.linkedin.com/in/wmichaelburke/",
@@ -1758,7 +1757,7 @@
     {
       "id": "vanessa-arndt-195",
       "name": "Vanessa Arndt",
-      "group": "Other Guests",
+      "group": "Attendees",
       "state": "FL",
       "image": "/images/directory/195-vanessa-arndt.webp",
       "linkedinUrl": "https://www.linkedin.com/in/vanessa-arndt-b884698/",
@@ -1767,7 +1766,7 @@
     {
       "id": "william-maxwell-196",
       "name": "William Maxwell",
-      "group": "Other Guests",
+      "group": "Attendees",
       "state": "TX",
       "image": "/images/directory/196-william-maxwell.jpg",
       "linkedinUrl": "https://www.linkedin.com/in/bill-maxwell-agencyshield/",
