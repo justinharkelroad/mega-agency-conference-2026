@@ -315,16 +315,24 @@ function Agenda() {
 }
 
 function SavannahMoment() {
+  const reduceMotion = useReducedMotion();
+
   return (
     <section className="moment-section page-shell" aria-labelledby="moment-heading">
       <motion.figure
         className="moment-image-wrap"
-        initial={{ clipPath: "inset(0 0 100% 0)" }}
-        whileInView={{ clipPath: "inset(0 0 0% 0)" }}
+        initial={reduceMotion ? false : { opacity: 0.86, scale: 1.015 }}
+        whileInView={reduceMotion ? undefined : { opacity: 1, scale: 1 }}
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
       >
-        <img src="/images/riverboat-evening.webp" alt="Conference guests talking on a Savannah riverboat at blue hour" loading="lazy" />
+        <img
+          src="/images/riverboat-evening.webp"
+          alt="Conference guests talking on a Savannah riverboat at blue hour"
+          loading="eager"
+          fetchPriority="low"
+          decoding="async"
+        />
       </motion.figure>
       <motion.div
         className="moment-copy"
