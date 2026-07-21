@@ -403,7 +403,7 @@ function Directory() {
   const filteredProfiles = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase();
     return directoryData.profiles.filter((profile) => {
-      const matchesQuery = !normalizedQuery || `${profile.name} ${profile.state}`.toLowerCase().includes(normalizedQuery);
+      const matchesQuery = !normalizedQuery || profile.name.toLowerCase().includes(normalizedQuery);
       const matchesGroup = group === "all" || profile.group === group;
       const matchesState = state === "all" || profile.state === state;
       const matchesLetter = letter === "all" || profile.name.startsWith(letter);
@@ -447,11 +447,11 @@ function Directory() {
 
         <div className="directory-controls" aria-label="Directory filters">
           <label className="directory-search-field">
-            <span>Search by name or state</span>
-            <div><MagnifyingGlass size={20} /><input type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Try “Georgia” or “Burke”" /></div>
+            <span>Search by name</span>
+            <div><MagnifyingGlass size={20} /><input type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Try “Burke”" autoComplete="off" /></div>
           </label>
           <label className="directory-state-field">
-            <span>State</span>
+            <span>State (2-letter code)</span>
             <select value={state} onChange={(event) => setState(event.target.value)}>
               <option value="all">All states</option>
               {states.map((stateCode) => <option key={stateCode} value={stateCode}>{stateCode}</option>)}
