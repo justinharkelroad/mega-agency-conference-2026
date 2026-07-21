@@ -257,7 +257,7 @@ function Intro() {
 }
 
 function Agenda() {
-  const [activeDay, setActiveDay] = useState(1);
+  const [activeDay, setActiveDay] = useState(0);
   const current = agenda[activeDay];
 
   return (
