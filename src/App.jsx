@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -80,6 +80,20 @@ const stateCodes = [
   "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA",
   "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY",
 ];
+
+const leadCaptureApiUrl = (import.meta.env.VITE_LEAD_CAPTURE_API_URL || "").replace(/\/$/, "");
+const leadCaptureSiteId = import.meta.env.VITE_SITE_ID || "";
+const initialWaitlistFields = {
+  submission_type: "MEGA 2026 waiting-list request",
+  name: "",
+  email: "",
+  state: "",
+  phone: "",
+  book_size: "",
+  staff_count: "",
+  reason_for_attending: "",
+  additional_information: "",
+};
 
 const reveal = {
   hidden: { opacity: 0, y: 30 },
@@ -658,48 +672,115 @@ function Footer() {
 function WaitlistModal({ open, onClose }) {
   const [status, setStatus] = useState("idle");
   const [message, setMessage] = useState("");
+  const [fields, setFields] = useState(initialWaitlistFields);
+  const sessionTokenRef = useRef("");
+  const autosaveTimerRef = useRef(null);
+  const honeypotRef = useRef(null);
+
+  const callSave = useCallback(async (nextFields, retryClosedSession = true) => {
+    if (!leadCaptureApiUrl || !leadCaptureSiteId) {
+      throw new Error("The waiting list is being connected. Please try again shortly.");
+    }
+
+    const response = await fetch(`${leadCaptureApiUrl}/hosted-site-lead-save`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        siteId: leadCaptureSiteId,
+        sessionToken: sessionTokenRef.current || undefined,
+        fields: nextFields,
+        honeypot: honeypotRef.current?.value || "",
+      }),
+    });
+    const result = await response.json().catch(() => ({}));
+
+    if (response.status === 409 && retryClosedSession) {
+      sessionTokenRef.current = "";
+      return callSave(nextFields, false);
+    }
+    if (!response.ok) {
+      throw new Error(result.message || "We could not save the form. Please try again.");
+    }
+    if (result.session_token) sessionTokenRef.current = result.session_token;
+    return result.session_token || sessionTokenRef.current;
+  }, []);
+
+  useEffect(() => {
+    if (!open || status === "success" || status === "submitting") return undefined;
+    window.clearTimeout(autosaveTimerRef.current);
+    autosaveTimerRef.current = window.setTimeout(() => {
+      callSave(fields).catch(() => {
+        // Autosave is best-effort. Final submit surfaces a useful error.
+      });
+    }, 500);
+    return () => window.clearTimeout(autosaveTimerRef.current);
+  }, [callSave, fields, open, status]);
+
+  useEffect(() => {
+    if (!open && status === "success") {
+      setStatus("idle");
+      setMessage("");
+    }
+  }, [open, status]);
+
+  const handleClose = useCallback(() => {
+    window.clearTimeout(autosaveTimerRef.current);
+    if (status !== "success" && Object.values(fields).some((value) => String(value).trim())) {
+      callSave(fields).catch(() => {});
+    }
+    onClose();
+  }, [callSave, fields, onClose, status]);
 
   useEffect(() => {
     if (!open) return undefined;
     const previous = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     const onKeyDown = (event) => {
-      if (event.key === "Escape") onClose();
+      if (event.key === "Escape") handleClose();
     };
     window.addEventListener("keydown", onKeyDown);
     return () => {
       document.body.style.overflow = previous;
       window.removeEventListener("keydown", onKeyDown);
     };
-  }, [open, onClose]);
+  }, [handleClose, open]);
+
+  const handleFieldChange = (event) => {
+    const { name, value } = event.target;
+    setFields((current) => ({ ...current, [name]: value }));
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const form = event.currentTarget;
-    const payload = Object.fromEntries(new FormData(form).entries());
+    window.clearTimeout(autosaveTimerRef.current);
     setStatus("submitting");
     setMessage("");
 
     try {
-      const response = await fetch("/api/waitlist", {
+      const sessionToken = await callSave(fields);
+      if (!sessionToken) throw new Error("Please enter a valid email or phone number and try again.");
+
+      const response = await fetch(`${leadCaptureApiUrl}/hosted-site-lead-submit`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({ siteId: leadCaptureSiteId, sessionToken }),
       });
       const result = await response.json().catch(() => ({}));
-      if (!response.ok) throw new Error(result.error || "We could not submit the form. Please try again.");
-      form.reset();
+      if (!response.ok) throw new Error(result.message || "We could not submit the form. Please try again.");
+      setFields(initialWaitlistFields);
+      sessionTokenRef.current = "";
+      if (honeypotRef.current) honeypotRef.current.value = "";
       setStatus("success");
     } catch (error) {
       setStatus("error");
-      setMessage(error.message);
+      setMessage(error instanceof Error ? error.message : "We could not submit the form. Please try again.");
     }
   };
 
   return (
     <AnimatePresence>
       {open && (
-        <motion.div className="modal-backdrop" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onMouseDown={onClose}>
+        <motion.div className="modal-backdrop" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onMouseDown={handleClose}>
           <motion.div
             className="registration-modal waitlist-modal"
             role="dialog"
@@ -711,13 +792,13 @@ function WaitlistModal({ open, onClose }) {
             transition={{ type: "spring", stiffness: 240, damping: 26 }}
             onMouseDown={(event) => event.stopPropagation()}
           >
-            <button className="modal-close" type="button" onClick={onClose} aria-label="Close waiting list"><X size={22} /></button>
+            <button className="modal-close" type="button" onClick={handleClose} aria-label="Close waiting list"><X size={22} /></button>
             {status === "success" ? (
               <div className="waitlist-success" role="status">
                 <p className="modal-label">Waiting list received</p>
                 <h2 id="modal-title">Thank you for raising your hand.</h2>
                 <p>The MEGA team will review your information and reach out directly if a place becomes available.</p>
-                <button className="primary-button wide" type="button" onClick={onClose}>Close</button>
+                <button className="primary-button wide" type="button" onClick={handleClose}>Close</button>
               </div>
             ) : (
               <>
@@ -727,42 +808,42 @@ function WaitlistModal({ open, onClose }) {
                 <form className="waitlist-form" onSubmit={handleSubmit}>
                   <label>
                     <span>Name</span>
-                    <input name="name" type="text" autoComplete="name" required />
+                    <input name="name" type="text" autoComplete="name" value={fields.name} onChange={handleFieldChange} required />
                   </label>
                   <label>
                     <span>Email</span>
-                    <input name="email" type="email" autoComplete="email" required />
+                    <input name="email" type="email" autoComplete="email" value={fields.email} onChange={handleFieldChange} required />
                   </label>
                   <label>
                     <span>State</span>
-                    <select name="state" defaultValue="" required>
+                    <select name="state" value={fields.state} onChange={handleFieldChange} required>
                       <option value="" disabled>Select state</option>
                       {stateCodes.map((stateCode) => <option value={stateCode} key={stateCode}>{stateCode}</option>)}
                     </select>
                   </label>
                   <label>
                     <span>Phone number</span>
-                    <input name="phone" type="tel" autoComplete="tel" required />
+                    <input name="phone" type="tel" autoComplete="tel" value={fields.phone} onChange={handleFieldChange} required />
                   </label>
                   <label>
                     <span>Book size</span>
-                    <input name="bookSize" type="text" inputMode="decimal" placeholder="Example: $5.2M" required />
+                    <input name="book_size" type="text" inputMode="decimal" placeholder="Example: $5.2M" value={fields.book_size} onChange={handleFieldChange} required />
                   </label>
                   <label>
                     <span>Number of staff</span>
-                    <input name="staffCount" type="number" min="0" max="10000" inputMode="numeric" required />
+                    <input name="staff_count" type="number" min="0" max="10000" inputMode="numeric" value={fields.staff_count} onChange={handleFieldChange} required />
                   </label>
                   <label className="waitlist-full">
                     <span>Why do you want to be part of the Mega Agency Conference?</span>
-                    <textarea name="reason" rows="4" required />
+                    <textarea name="reason_for_attending" rows="4" value={fields.reason_for_attending} onChange={handleFieldChange} required />
                   </label>
                   <label className="waitlist-full">
                     <span>Anything else we should know about you or your agency? <small>Optional</small></span>
-                    <textarea name="additionalInfo" rows="3" />
+                    <textarea name="additional_information" rows="3" value={fields.additional_information} onChange={handleFieldChange} />
                   </label>
                   <label className="waitlist-honeypot" aria-hidden="true">
                     <span>Website</span>
-                    <input name="companyWebsite" type="text" tabIndex="-1" autoComplete="off" />
+                    <input ref={honeypotRef} name="company_website" type="text" tabIndex="-1" autoComplete="off" />
                   </label>
                   {status === "error" && <p className="waitlist-error" role="alert">{message}</p>}
                   <button className="primary-button wide waitlist-submit" type="submit" disabled={status === "submitting"}>
