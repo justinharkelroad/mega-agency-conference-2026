@@ -5,7 +5,7 @@
     "total": 199,
     "hosts": 8,
     "attendees": 187,
-    "vendors": 2,
+    "sponsors": 2,
     "homeOffice": 2
   },
   "profiles": [
@@ -39,7 +39,7 @@
     {
       "id": "justin-slocum-4",
       "name": "Justin Slocum",
-      "group": "Vendors",
+      "group": "Sponsors",
       "company": "Agency For Sale",
       "state": "TX",
       "image": "/images/directory/004-justin-slocum.webp",
@@ -1757,15 +1757,6 @@
       "sourceImageUrl": "https://mlz9xzqslv2u.i.optimole.com/w:auto/h:auto/q:mauto/f:best/https://www.megaagencyconference.com/wp-content/uploads/2025/06/mike-burke.jpg"
     },
     {
-      "id": "vanessa-arndt-195",
-      "name": "Vanessa Arndt",
-      "group": "Attendees",
-      "state": "FL",
-      "image": "/images/directory/195-vanessa-arndt.webp",
-      "linkedinUrl": "https://www.linkedin.com/in/vanessa-arndt-b884698/",
-      "sourceImageUrl": "https://mlz9xzqslv2u.i.optimole.com/w:800/h:800/q:mauto/f:best/https://www.megaagencyconference.com/wp-content/uploads/2026/07/Vanessa-Arndt-s.jpg"
-    },
-    {
       "id": "william-maxwell-196",
       "name": "William Maxwell",
       "group": "Attendees",
@@ -1778,6 +1769,7 @@
       "id": "andy-garza-197",
       "name": "Andy Garza",
       "group": "Home Office Guests",
+      "title": "SVP, Distribution Operations and Strategy, Agency Sales, East Territory",
       "state": "MI",
       "image": "/images/directory/197-andy-garza.webp",
       "linkedinUrl": "https://www.linkedin.com/in/andy-garza/",
@@ -1787,6 +1779,7 @@
       "id": "ryan-dunn-198",
       "name": "Ryan Dunn",
       "group": "Home Office Guests",
+      "title": "Director, Data Scientist",
       "state": "IL",
       "image": "/images/directory/198-ryan-dunn.webp",
       "linkedinUrl": "https://www.linkedin.com/in/ryan-dunn-b374a613/",
@@ -1795,10 +1788,19 @@
     {
       "id": "brett-schickler-199",
       "name": "Brett Schickler",
-      "group": "Vendors",
+      "group": "Sponsors",
       "company": "Ricochet",
       "state": "",
       "image": "/images/directory/199-brett-schickler.png",
+      "linkedinUrl": null,
+      "sourceImageUrl": null
+    },
+    {
+      "id": "alice-miller-200",
+      "name": "Alice Miller",
+      "group": "Attendees",
+      "state": "VA",
+      "image": "/images/directory/200-alice-miller.webp",
       "linkedinUrl": null,
       "sourceImageUrl": null
     }

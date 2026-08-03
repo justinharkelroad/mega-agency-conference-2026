@@ -20,4 +20,10 @@ export default [
       "no-unused-vars": ["error", { varsIgnorePattern: "^(motion|[A-Z_])" }],
     },
   },
+  {
+    files: ["api/**/*.js"],
+    languageOptions: {
+      globals: globals.node,
+    },
+  },
 ];

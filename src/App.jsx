@@ -74,6 +74,13 @@ const navItems = [
   { label: "Sponsors", href: "#sponsors", id: "sponsors" },
 ];
 
+const stateCodes = [
+  "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "DC", "FL", "GA", "HI", "ID",
+  "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO",
+  "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA",
+  "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY",
+];
+
 const reveal = {
   hidden: { opacity: 0, y: 30 },
   visible: { opacity: 1, y: 0 },
@@ -94,7 +101,7 @@ function useTheme() {
   return [theme, setTheme];
 }
 
-function Header({ onRegister }) {
+function Header({ onJoinWaitlist }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [active, setActive] = useState("");
   const [theme, setTheme] = useTheme();
@@ -136,7 +143,7 @@ function Header({ onRegister }) {
         >
           {theme === "dark" ? <Sun size={18} /> : <MoonStars size={18} />}
         </button>
-        <button className="nav-register" type="button" onClick={onRegister}>Register</button>
+        <button className="nav-register" type="button" onClick={onJoinWaitlist}>Join the waiting list</button>
         <button
           className="menu-toggle"
           type="button"
@@ -159,7 +166,7 @@ function Header({ onRegister }) {
             {navItems.map((item) => (
               <a key={item.id} href={item.href} onClick={() => setMenuOpen(false)}>{item.label}</a>
             ))}
-            <button type="button" onClick={() => { setMenuOpen(false); onRegister(); }}>Register</button>
+            <button type="button" onClick={() => { setMenuOpen(false); onJoinWaitlist(); }}>Join the waiting list</button>
           </motion.nav>
         )}
       </AnimatePresence>
@@ -167,7 +174,7 @@ function Header({ onRegister }) {
   );
 }
 
-function Hero({ onRegister }) {
+function Hero({ onJoinWaitlist }) {
   const heroRef = useRef(null);
   const reduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
@@ -187,23 +194,32 @@ function Hero({ onRegister }) {
       />
       <div className="hero-scrim" />
       <motion.div className="hero-content page-shell" style={{ y: contentY, opacity: contentOpacity }}>
-        <motion.p className="hero-kicker" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }}>
-          2026 Mega Agency Conference
-        </motion.p>
+        <motion.div className="hero-eyebrow" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }}>
+          <span className="hero-status">Sold out</span>
+          <span>September 21–23 · Savannah, Georgia</span>
+        </motion.div>
         <motion.h1
           initial={{ opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
         >
-          Built on Excellence,<br />Focused on the Future.
+          2026 Mega Agency Conference
         </motion.h1>
+        <motion.p
+          className="hero-tagline"
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.16, ease: [0.16, 1, 0.3, 1] }}
+        >
+          Built on Excellence, Focused on the Future.
+        </motion.p>
         <motion.p
           className="hero-summary"
           initial={{ opacity: 0, y: 22 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
         >
-          Three days of candid ideas, trusted partners, and the agents shaping what comes next.
+          Three days of candid ideas, shared experience, and time with the agents and partners who understand the work.
         </motion.p>
         <motion.div
           className="hero-actions"
@@ -211,8 +227,8 @@ function Hero({ onRegister }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.32 }}
         >
-          <button className="primary-button" type="button" onClick={onRegister}>
-            Register <ArrowRight size={18} weight="bold" />
+          <button className="primary-button" type="button" onClick={onJoinWaitlist}>
+            Join the waiting list <ArrowRight size={18} weight="bold" />
           </button>
           <a className="text-link light" href="#agenda">See agenda <CaretDown size={16} /></a>
         </motion.div>
@@ -248,7 +264,7 @@ function Intro() {
         viewport={{ once: true, amount: 0.4 }}
         transition={{ duration: 0.7, delay: 0.1 }}
       >
-        <p>Fewer sales pitches. Better conversations. Mega brings agents and the partners they trust into one focused room.</p>
+        <p>Mega brings agents, peers, and trusted partners together for practical conversations, shared perspective, and relationships that continue long after Savannah.</p>
         <div className="intro-stat"><strong>3</strong><span>days in Savannah</span></div>
         <div className="intro-stat"><strong>1</strong><span>high-value community</span></div>
       </motion.div>
@@ -348,7 +364,7 @@ function SavannahMoment() {
           <span>Tuesday evening</span>
           <strong>Riverboat dinner cruise</strong>
           <span>6:00 pm to 9:00 pm</span>
-          <span className="moment-sponsor-credit">Sponsored by Agency for Sale, All Recruiting, Wintrust &amp; EverQuote</span>
+          <span className="moment-sponsor-credit">Sponsored by Agency For Sale, All Recruiting, Wintrust, and EverQuote.</span>
         </div>
       </motion.div>
     </section>
@@ -356,11 +372,11 @@ function SavannahMoment() {
 }
 
 const directoryGroups = [
-  { value: "Hosts", label: "Hosts" },
-  { value: "Attendees", label: "Attendees" },
-  { value: "Vendors", label: "Vendors" },
-  { value: "Home Office Guests", label: "Home Office" },
   { value: "all", label: "Everyone" },
+  { value: "Home Office Guests", label: "Home Office" },
+  { value: "Sponsors", label: "Sponsors" },
+  { value: "Attendees", label: "Attendees" },
+  { value: "Hosts", label: "Hosts" },
 ];
 
 function ProfileImage({ profile }) {
@@ -375,7 +391,7 @@ function ProfileImage({ profile }) {
     <img
       src={profile.image}
       alt={profile.company
-        ? `${profile.name}, vendor with ${profile.company}`
+        ? `${profile.name}, sponsor with ${profile.company}`
         : `${profile.name}, ${profile.group.toLowerCase()} from ${profile.state}`}
       loading="lazy"
       decoding="async"
@@ -442,7 +458,7 @@ function Directory() {
         >
           <div>
             <h2 id="directory-heading">Find your people.</h2>
-            <p>Every 2026 attendee, host and guest in one fast, searchable directory.</p>
+            <p>Every 2026 attendee, host, sponsor, and Home Office guest in one searchable directory.</p>
           </div>
           <div className="directory-totals" aria-label="Directory totals">
             <span><strong>{directoryData.counts.total}</strong> people</span>
@@ -497,7 +513,10 @@ function Directory() {
               >
                 <div className="profile-photo"><ProfileImage profile={profile} /></div>
                 <div className="profile-card-body">
-                  <div><h3>{profile.name}</h3><p>{profile.company ? `Vendor · ${profile.company}` : profile.group}</p></div>
+                  <div>
+                    <h3>{profile.name}</h3>
+                    <p className={profile.title ? "profile-title" : ""}>{profile.company ? `Sponsor · ${profile.company}` : profile.title || profile.group}</p>
+                  </div>
                   <div className="profile-card-actions">
                     {profile.state && <span><MapPin size={14} weight="fill" />{profile.state}</span>}
                     {profile.linkedinUrl && (
@@ -562,7 +581,7 @@ function Sponsors() {
           <AnimatePresence>
             {filtered.map((sponsor) => (
               <motion.a
-                className={sponsor.featured ? "sponsor-card flagship" : "sponsor-card"}
+                className={`sponsor-card${sponsor.featured ? " flagship" : ""}${sponsor.priority ? " priority" : ""}`}
                 href={sponsor.url}
                 target="_blank"
                 rel="noreferrer"
@@ -597,7 +616,7 @@ function Sponsors() {
   );
 }
 
-function Registration({ onRegister }) {
+function Registration({ onJoinWaitlist }) {
   return (
     <section className="registration-section" id="registration" aria-labelledby="registration-heading">
       <div className="registration-image" aria-hidden="true" />
@@ -609,9 +628,10 @@ function Registration({ onRegister }) {
         viewport={{ once: true, amount: 0.4 }}
         transition={{ duration: 0.75 }}
       >
-        <p>September 21-23, 2026</p>
-        <h2 id="registration-heading">See you on the river.</h2>
-        <button className="primary-button" type="button" onClick={onRegister}>Register <ArrowRight size={18} weight="bold" /></button>
+        <p>Sold out · September 21–23, 2026</p>
+        <h2 id="registration-heading">The room is full. The waiting list is open.</h2>
+        <span className="registration-note">If a place becomes available, the MEGA team will review the waiting list and reach out directly.</span>
+        <button className="primary-button" type="button" onClick={onJoinWaitlist}>Join the waiting list <ArrowRight size={18} weight="bold" /></button>
       </motion.div>
     </section>
   );
@@ -629,14 +649,16 @@ function Footer() {
         <a href="#agenda">Agenda</a>
         <a href="#directory">Directory</a>
         <a href="#sponsors">Sponsors</a>
-        <a href="https://megaagencyconference.com/" target="_blank" rel="noreferrer">Current site</a>
       </div>
       <p className="copyright">© 2026 Mega Agency Conference</p>
     </footer>
   );
 }
 
-function RegistrationModal({ open, onClose }) {
+function WaitlistModal({ open, onClose }) {
+  const [status, setStatus] = useState("idle");
+  const [message, setMessage] = useState("");
+
   useEffect(() => {
     if (!open) return undefined;
     const previous = document.body.style.overflow;
@@ -651,12 +673,35 @@ function RegistrationModal({ open, onClose }) {
     };
   }, [open, onClose]);
 
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const payload = Object.fromEntries(new FormData(form).entries());
+    setStatus("submitting");
+    setMessage("");
+
+    try {
+      const response = await fetch("/api/waitlist", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(result.error || "We could not submit the form. Please try again.");
+      form.reset();
+      setStatus("success");
+    } catch (error) {
+      setStatus("error");
+      setMessage(error.message);
+    }
+  };
+
   return (
     <AnimatePresence>
       {open && (
         <motion.div className="modal-backdrop" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onMouseDown={onClose}>
           <motion.div
-            className="registration-modal"
+            className="registration-modal waitlist-modal"
             role="dialog"
             aria-modal="true"
             aria-labelledby="modal-title"
@@ -666,15 +711,66 @@ function RegistrationModal({ open, onClose }) {
             transition={{ type: "spring", stiffness: 240, damping: 26 }}
             onMouseDown={(event) => event.stopPropagation()}
           >
-            <button className="modal-close" type="button" onClick={onClose} aria-label="Close registration"><X size={22} /></button>
-            <p className="modal-label">Registration handoff</p>
-            <h2 id="modal-title">Your Stripe checkout drops in here.</h2>
-            <p>This concept keeps payment outside the website. Replace the button below with the final Stripe Payment Link and registration is ready.</p>
-            <div className="checkout-preview">
-              <span>2026 conference registration</span>
-              <strong>Secure checkout in Stripe</strong>
-            </div>
-            <button className="primary-button wide" type="button" onClick={onClose}>Return to preview</button>
+            <button className="modal-close" type="button" onClick={onClose} aria-label="Close waiting list"><X size={22} /></button>
+            {status === "success" ? (
+              <div className="waitlist-success" role="status">
+                <p className="modal-label">Waiting list received</p>
+                <h2 id="modal-title">Thank you for raising your hand.</h2>
+                <p>The MEGA team will review your information and reach out directly if a place becomes available.</p>
+                <button className="primary-button wide" type="button" onClick={onClose}>Close</button>
+              </div>
+            ) : (
+              <>
+                <p className="modal-label">2026 conference · Sold out</p>
+                <h2 id="modal-title">Join the waiting list.</h2>
+                <p>Tell us a little about you and your agency. Tara’s MEGA team will review every submission.</p>
+                <form className="waitlist-form" onSubmit={handleSubmit}>
+                  <label>
+                    <span>Name</span>
+                    <input name="name" type="text" autoComplete="name" required />
+                  </label>
+                  <label>
+                    <span>Email</span>
+                    <input name="email" type="email" autoComplete="email" required />
+                  </label>
+                  <label>
+                    <span>State</span>
+                    <select name="state" defaultValue="" required>
+                      <option value="" disabled>Select state</option>
+                      {stateCodes.map((stateCode) => <option value={stateCode} key={stateCode}>{stateCode}</option>)}
+                    </select>
+                  </label>
+                  <label>
+                    <span>Phone number</span>
+                    <input name="phone" type="tel" autoComplete="tel" required />
+                  </label>
+                  <label>
+                    <span>Book size</span>
+                    <input name="bookSize" type="text" inputMode="decimal" placeholder="Example: $5.2M" required />
+                  </label>
+                  <label>
+                    <span>Number of staff</span>
+                    <input name="staffCount" type="number" min="0" max="10000" inputMode="numeric" required />
+                  </label>
+                  <label className="waitlist-full">
+                    <span>Why do you want to be part of the Mega Agency Conference?</span>
+                    <textarea name="reason" rows="4" required />
+                  </label>
+                  <label className="waitlist-full">
+                    <span>Anything else we should know about you or your agency? <small>Optional</small></span>
+                    <textarea name="additionalInfo" rows="3" />
+                  </label>
+                  <label className="waitlist-honeypot" aria-hidden="true">
+                    <span>Website</span>
+                    <input name="companyWebsite" type="text" tabIndex="-1" autoComplete="off" />
+                  </label>
+                  {status === "error" && <p className="waitlist-error" role="alert">{message}</p>}
+                  <button className="primary-button wide waitlist-submit" type="submit" disabled={status === "submitting"}>
+                    {status === "submitting" ? "Sending…" : "Submit waiting-list request"}
+                  </button>
+                </form>
+              </>
+            )}
           </motion.div>
         </motion.div>
       )}
@@ -683,24 +779,24 @@ function RegistrationModal({ open, onClose }) {
 }
 
 export default function App() {
-  const [registrationOpen, setRegistrationOpen] = useState(false);
-  const openRegistration = () => setRegistrationOpen(true);
+  const [waitlistOpen, setWaitlistOpen] = useState(false);
+  const openWaitlist = () => setWaitlistOpen(true);
 
   return (
     <>
       <a className="skip-link" href="#main">Skip to content</a>
-      <Header onRegister={openRegistration} />
+      <Header onJoinWaitlist={openWaitlist} />
       <main id="main">
-        <Hero onRegister={openRegistration} />
+        <Hero onJoinWaitlist={openWaitlist} />
         <Intro />
         <Agenda />
         <SavannahMoment />
         <Directory />
         <Sponsors />
-        <Registration onRegister={openRegistration} />
+        <Registration onJoinWaitlist={openWaitlist} />
       </main>
       <Footer />
-      <RegistrationModal open={registrationOpen} onClose={() => setRegistrationOpen(false)} />
+      <WaitlistModal open={waitlistOpen} onClose={() => setWaitlistOpen(false)} />
     </>
   );
 }
