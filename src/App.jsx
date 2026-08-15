@@ -393,6 +393,23 @@ const directoryGroups = [
   { value: "Hosts", label: "Hosts" },
 ];
 
+const baseDirectoryNames = new Set(directoryData.profiles.map((profile) => profile.name.toLowerCase()));
+const sponsorDirectoryProfiles = sponsors.flatMap((sponsor) =>
+  (sponsor.representatives ?? [])
+    .filter((representative) => !baseDirectoryNames.has(representative.name.toLowerCase()))
+    .map((representative) => ({
+      id: `sponsor-${sponsor.name}-${representative.name}`.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
+      name: representative.name,
+      group: "Sponsors",
+      company: sponsor.name,
+      state: "",
+      image: representative.image,
+      linkedinUrl: null,
+      sourceImageUrl: null,
+    })),
+);
+const directoryProfiles = [...directoryData.profiles, ...sponsorDirectoryProfiles];
+
 function ProfileImage({ profile }) {
   const [failed, setFailed] = useState(false);
   const initials = profile.name.split(" ").map((part) => part[0]).slice(0, 2).join("");
@@ -422,22 +439,22 @@ function Directory() {
   const [visibleLimit, setVisibleLimit] = useState(24);
 
   const states = useMemo(
-    () => [...new Set(directoryData.profiles
+    () => [...new Set(directoryProfiles
       .map((profile) => profile.state)
       .filter((stateCode) => /^[A-Z]{2}$/.test(stateCode)))].sort(),
     [],
   );
   const letters = useMemo(
-    () => [...new Set(directoryData.profiles.map((profile) => profile.name[0].toUpperCase()))].sort(),
+    () => [...new Set(directoryProfiles.map((profile) => profile.name[0].toUpperCase()))].sort(),
     [],
   );
   const groupCount = (value) => value === "all"
-    ? directoryData.profiles.length
-    : directoryData.profiles.filter((profile) => profile.group === value).length;
+    ? directoryProfiles.length
+    : directoryProfiles.filter((profile) => profile.group === value).length;
 
   const filteredProfiles = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase();
-    return directoryData.profiles.filter((profile) => {
+    return directoryProfiles.filter((profile) => {
       const matchesQuery = !normalizedQuery || profile.name.toLowerCase().includes(normalizedQuery);
       const matchesGroup = group === "all" || profile.group === group;
       const matchesState = state === "all" || profile.state === state;
@@ -475,7 +492,7 @@ function Directory() {
             <p>Every 2026 attendee, host, sponsor, and Home Office guest in one searchable directory.</p>
           </div>
           <div className="directory-totals" aria-label="Directory totals">
-            <span><strong>{directoryData.counts.total}</strong> people</span>
+            <span><strong>{directoryProfiles.length}</strong> people</span>
             <span><strong>{states.length}</strong> states</span>
           </div>
         </motion.header>
@@ -567,7 +584,12 @@ function Directory() {
 function Sponsors() {
   const [query, setQuery] = useState("");
   const filtered = useMemo(
-    () => sponsors.filter((sponsor) => `${sponsor.name} ${sponsor.level} ${sponsor.domain}`.toLowerCase().includes(query.toLowerCase())),
+    () => sponsors.filter((sponsor) => {
+      const representativeNames = sponsor.representatives?.map((representative) => representative.name).join(" ") ?? "";
+      return `${sponsor.name} ${sponsor.level} ${sponsor.domain} ${representativeNames}`
+        .toLowerCase()
+        .includes(query.toLowerCase());
+    }),
     [query],
   );
 
@@ -607,11 +629,23 @@ function Sponsors() {
                 exit={{ opacity: 0, scale: 0.97 }}
                 transition={{ duration: 0.25 }}
               >
-                <div className={`sponsor-logo-stage${sponsor.logos.length > 1 ? " paired" : ""}`}>
-                  {sponsor.logos.map((logo) => (
+                <div className={`sponsor-logo-stage${sponsor.logos.length > 1 ? " paired" : ""}${sponsor.logos.length === 0 ? " wordmark-only" : ""}`}>
+                  {sponsor.logos.length ? sponsor.logos.map((logo) => (
                     <img src={logo} alt={`${sponsor.name} logo`} loading="lazy" key={logo} />
-                  ))}
+                  )) : (
+                    <span>{sponsor.name}</span>
+                  )}
                 </div>
+                {sponsor.representatives?.length ? (
+                  <div className="sponsor-representatives" aria-label={`${sponsor.name} representatives`}>
+                    {sponsor.representatives.map((representative) => (
+                      <figure className="sponsor-representative" key={representative.name}>
+                        <img src={representative.image} alt="" loading="lazy" />
+                        <figcaption>{representative.name}</figcaption>
+                      </figure>
+                    ))}
+                  </div>
+                ) : null}
                 <div className="sponsor-card-meta">
                   <div><small>{sponsor.level}</small><h3>{sponsor.name}</h3><p>{sponsor.domain}</p></div>
                   <span className="sponsor-arrow" aria-hidden="true"><ArrowUpRight size={20} /></span>

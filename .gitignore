@@ -5,6 +5,7 @@ dist/
 work/
 outputs/
 public/images/current-directory.webp
+public/images/LOGOS FOR MEGA/
 *.log
 .env
 .env.*
