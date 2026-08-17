@@ -640,7 +640,7 @@ function Sponsors() {
                   <div className="sponsor-representatives" aria-label={`${sponsor.name} representatives`}>
                     {sponsor.representatives.map((representative) => (
                       <figure className="sponsor-representative" key={representative.name}>
-                        <img src={representative.image} alt="" loading="lazy" />
+                        <SponsorRepresentativePhoto representative={representative} />
                         <figcaption>{representative.name}</figcaption>
                       </figure>
                     ))}
@@ -662,6 +662,25 @@ function Sponsors() {
       )}
     </section>
   );
+}
+
+function SponsorRepresentativePhoto({ representative }) {
+  const [failed, setFailed] = useState(false);
+  const initials = representative.name
+    .split(" ")
+    .map((part) => part[0])
+    .slice(0, 2)
+    .join("");
+
+  if (failed || !representative.image) {
+    return (
+      <span className="sponsor-representative-fallback" aria-label={`${representative.name} photo unavailable`}>
+        {initials}
+      </span>
+    );
+  }
+
+  return <img src={representative.image} alt="" loading="lazy" onError={() => setFailed(true)} />;
 }
 
 function Registration({ onJoinWaitlist }) {
