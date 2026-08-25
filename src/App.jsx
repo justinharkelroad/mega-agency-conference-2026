@@ -631,7 +631,13 @@ function Sponsors() {
               >
                 <div className={`sponsor-logo-stage${sponsor.logos.length > 1 ? " paired" : ""}${sponsor.logos.length === 0 ? " wordmark-only" : ""}`}>
                   {sponsor.logos.length ? sponsor.logos.map((logo) => (
-                    <img src={logo} alt={`${sponsor.name} logo`} loading="lazy" key={logo} />
+                    <img
+                      src={logo}
+                      alt={`${sponsor.name} logo`}
+                      loading="lazy"
+                      key={logo}
+                      style={{ "--logo-scale": sponsor.logoScale ?? 1 }}
+                    />
                   )) : (
                     <span>{sponsor.name}</span>
                   )}
