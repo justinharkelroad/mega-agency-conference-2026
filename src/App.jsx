@@ -651,7 +651,9 @@ function Sponsors() {
                       </figure>
                     ))}
                   </div>
-                ) : null}
+                ) : (
+                  <div className="sponsor-representatives is-empty" aria-hidden="true" />
+                )}
                 <div className="sponsor-card-meta">
                   <div><small>{sponsor.level}</small><h3>{sponsor.name}</h3><p>{sponsor.domain}</p></div>
                   <span className="sponsor-arrow" aria-hidden="true"><ArrowUpRight size={20} /></span>

@@ -1492,6 +1492,7 @@ p {
   display: flex;
   align-items: flex-start;
   gap: 0.65rem;
+  min-height: 96px;
   padding: 0.9rem 1rem 0.15rem;
 }
 
