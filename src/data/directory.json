@@ -2,9 +2,9 @@
   "sourceUrl": "https://megaagencyconference.com/directory/",
   "extractedAt": "2026-07-21T10:48:53.357Z",
   "counts": {
-    "total": 199,
+    "total": 200,
     "hosts": 8,
-    "attendees": 187,
+    "attendees": 188,
     "sponsors": 2,
     "homeOffice": 2
   },
@@ -1801,6 +1801,15 @@
       "group": "Attendees",
       "state": "VA",
       "image": "/images/directory/200-alice-miller.webp",
+      "linkedinUrl": null,
+      "sourceImageUrl": null
+    },
+    {
+      "id": "chris-just-201",
+      "name": "Chris Just",
+      "group": "Attendees",
+      "state": "NC",
+      "image": "/images/directory/201-chris-just.webp",
       "linkedinUrl": null,
       "sourceImageUrl": null
     }
