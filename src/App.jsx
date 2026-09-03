@@ -47,7 +47,7 @@ const agenda = [
       { time: "9:00 am", title: "Welcome and ground rules", end: "9:15 am", type: "Chris Burke and Robert Varich" },
       { time: "9:15 am", title: "Main stage session", end: "10:45 am", type: "Speaker announcement soon" },
       { time: "10:45 am", title: "Coffee break", end: "11:00 am", type: "Sponsor room" },
-      { time: "12:30 pm", title: "Taste of Savannah lunch", end: "2:00 pm", type: "Sponsor fair", featured: true },
+      { time: "12:30 pm", title: "Sponsor fair", end: "2:00 pm", type: "Taste of Savannah lunch", featured: true },
       { time: "2:00 pm", title: "Mega survey", end: "2:30 pm", type: "Ryan Dunn, Chris Burke and Ned Loyd" },
       { time: "3:45 pm", title: "Afternoon main stage", end: "4:30 pm", type: "Speaker announcement soon" },
       { time: "6:00 pm", title: "Savannah River Queen dinner cruise", end: "9:00 pm", type: "Sponsor event", featured: true },
