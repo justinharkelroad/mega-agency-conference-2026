@@ -11,6 +11,9 @@ client library or per-site Resend key is required.
 - Sender: `leads@standardplaybook.com`
 - Production recipient: managed in the Agency Brain `hosted_sites` record
 
+The production recipient was corrected and verified in the live record on
+September 9, 2026.
+
 The end-to-end connection was verified on August 3, 2026 against Justin's test
 inbox before the production row was switched to Tara's MEGA inbox. The verified
 test row is clearly labeled `MEGA Hosted Connection Test` in Agency Brain.
