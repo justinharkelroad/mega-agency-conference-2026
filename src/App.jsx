@@ -32,9 +32,9 @@ const agenda = [
     label: "Monday, September 21",
     note: "Arrival and introductions",
     sessions: [
-      { time: "12:00 pm", title: "Sponsor setup", end: "3:00 pm", type: "Sponsors" },
-      { time: "3:00 pm", title: "Registration and sponsor fair", end: "5:00 pm", type: "All attendees" },
-      { time: "6:00 pm", title: "Welcome cocktail reception", end: "9:00 pm", type: "Electric Moon and Moon Deck", featured: true },
+      { time: "12:00 pm", title: "Sponsor Set Up", end: "3:00 pm" },
+      { time: "3:00 pm", title: "Attendee Registration & Sponsor Fair", end: "5:00 pm" },
+      { time: "6:00 pm", title: "Welcome Cocktail Reception", end: "9:00 pm", featured: true },
     ],
   },
   {
@@ -43,14 +43,21 @@ const agenda = [
     label: "Tuesday, September 22",
     note: "Ideas, peers and the river",
     sessions: [
-      { time: "8:00 am", title: "Hosted breakfast buffet", end: "9:00 am", type: "Sponsor room" },
-      { time: "9:00 am", title: "Welcome and ground rules", end: "9:15 am", type: "Chris Burke and Robert Varich" },
-      { time: "9:15 am", title: "Main stage session", end: "10:45 am", type: "Speaker announcement soon" },
-      { time: "10:45 am", title: "Coffee break", end: "11:00 am", type: "Sponsor room" },
-      { time: "12:30 pm", title: "Sponsor fair", end: "2:00 pm", type: "Taste of Savannah lunch", featured: true },
-      { time: "2:00 pm", title: "Mega survey", end: "2:30 pm", type: "Ryan Dunn, Chris Burke and Ned Loyd" },
-      { time: "3:45 pm", title: "Afternoon main stage", end: "4:30 pm", type: "Speaker announcement soon" },
-      { time: "6:00 pm", title: "Savannah River Queen dinner cruise", end: "9:00 pm", type: "Sponsor event", featured: true },
+      { time: "8:00 am", title: "Hosted Breakfast Buffet", end: "9:00 am" },
+      { time: "9:00 am", title: "Welcome / Ground Rules", end: "9:20 am", type: "Chris Burke & Robert Varich" },
+      { time: "9:20 am", title: "Mega Agency Survey", end: "9:45 am", type: "Ryan Dunn & Chris Burke" },
+      { time: "9:45 am", title: "Home Office", end: "10:30 am", type: "Andy Garza" },
+      { time: "10:45 am", title: "Break", end: "11:00 am" },
+      { time: "11:00 am", title: "LEADS - ChatGPT & Yelp", end: "11:20 am", type: "Danielle Cameron" },
+      { time: "11:20 am", title: "Utilizing Virtual Assistants", end: "12:00 pm", type: "Danielle Bazin" },
+      { time: "12:00 pm", title: "Sponsor Introductions", end: "12:30 pm", type: "Laura Harris & Kristin Maxwell" },
+      { time: "12:30 pm", title: "Sponsor Fair - Taste of Savannah Lunch", end: "2:00 pm", featured: true },
+      { time: "2:00 pm", title: "LeadGen from Real Estate Agents", end: "2:45 pm", type: "Paul Guerrero" },
+      { time: "2:45 pm", title: "Agency Automation using AI", end: "3:30 pm", type: "Robert Zabbia" },
+      { time: "3:30 pm", title: "Break", end: "3:45 pm" },
+      { time: "3:45 pm", title: "Built to WIN", end: "4:30 pm", type: "Justin Farnsworth" },
+      { time: "4:30 pm", title: "Wrap Up / Flex", end: "5:00 pm", type: "Chris Burke & Ned Loyd" },
+      { time: "6:00 pm", title: "Sponsor Event - Savannah River Queen", end: "9:00 pm", type: "Justin Slocum", featured: true },
     ],
   },
   {
@@ -59,11 +66,13 @@ const agenda = [
     label: "Wednesday, September 23",
     note: "Take the good stuff home",
     sessions: [
-      { time: "8:00 am", title: "Hosted breakfast buffet", end: "9:00 am", type: "Sponsor room" },
-      { time: "9:00 am", title: "What is working and what changed", end: "10:30 am", type: "General session", featured: true },
-      { time: "10:30 am", title: "Coffee break", end: "10:45 am", type: "Sponsor room" },
-      { time: "10:45 am", title: "Closing sessions", end: "12:30 pm", type: "Speaker announcements soon" },
-      { time: "12:30 pm", title: "Conference wrap-up", end: "2:00 pm", type: "General session" },
+      { time: "8:00 am", title: "Hosted Breakfast Buffet", end: "9:00 am" },
+      { time: "9:00 am", title: "Agency Sales & Valuations", end: "9:45 am", type: "Justin Slocum" },
+      { time: "9:45 am", title: "Top Producers", end: "10:30 am", type: "Kristin Maxwell" },
+      { time: "10:30 am", title: "Coffee Break", end: "10:45 am" },
+      { time: "10:45 am", title: "What's Working", end: "11:30 am", type: "Mike Burke, Brooke Brolo, & Ben Bucher" },
+      { time: "11:30 am", title: "Show me the $$$ - Strategic Planning", end: "12:15 pm", type: "Chris Burke & Ned Loyd" },
+      { time: "12:30 pm", title: "Wrap-Up", end: "1:00 pm", type: "Chris Burke & Ned Loyd" },
     ],
   },
 ];
@@ -331,7 +340,7 @@ function Agenda() {
                 {current.sessions.map((session) => (
                   <article className={session.featured ? "session featured" : "session"} key={`${session.time}-${session.title}`}>
                     <div className="session-time"><Clock size={17} /><span>{session.time}<small>to {session.end}</small></span></div>
-                    <div className="session-title"><h3>{session.title}</h3><p>{session.type}</p></div>
+                    <div className="session-title"><h3>{session.title}</h3>{session.type && <p>{session.type}</p>}</div>
                     {session.featured && <ArrowUpRight size={20} aria-hidden="true" />}
                   </article>
                 ))}
