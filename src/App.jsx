@@ -217,7 +217,7 @@ function Hero({ onJoinWaitlist }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
         >
-          2026 Mega Agency Conference
+          2026 MEGA Agency Conference
         </motion.h1>
         <motion.p
           className="hero-tagline"
