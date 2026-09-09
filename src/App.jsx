@@ -433,7 +433,7 @@ function ProfileImage({ profile }) {
 
 function Directory() {
   const [query, setQuery] = useState("");
-  const [group, setGroup] = useState("Hosts");
+  const [group, setGroup] = useState("all");
   const [state, setState] = useState("all");
   const [letter, setLetter] = useState("all");
   const [visibleLimit, setVisibleLimit] = useState(24);
@@ -468,10 +468,10 @@ function Directory() {
   }, [group, letter, query, state]);
 
   const visibleProfiles = filteredProfiles.slice(0, visibleLimit);
-  const hasFilters = query || group !== "Hosts" || state !== "all" || letter !== "all";
+  const hasFilters = query || group !== "all" || state !== "all" || letter !== "all";
   const clearFilters = () => {
     setQuery("");
-    setGroup("Hosts");
+    setGroup("all");
     setState("all");
     setLetter("all");
   };
