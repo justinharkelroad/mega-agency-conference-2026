@@ -9,7 +9,7 @@ client library or per-site Resend key is required.
 - Site ID: `mega-agency-conference-2026`
 - API: `https://wjqyccbytctqwceuhzhk.functions.supabase.co`
 - Sender: `leads@standardplaybook.com`
-- Production recipient: `megagencyconference@gmail.com`
+- Production recipient: managed in the Agency Brain `hosted_sites` record
 
 The end-to-end connection was verified on August 3, 2026 against Justin's test
 inbox before the production row was switched to Tara's MEGA inbox. The verified
@@ -36,7 +36,7 @@ without sending a test message to the client inbox:
 
 ```sql
 UPDATE public.hosted_sites
-   SET inbox_emails = ARRAY['megagencyconference@gmail.com']
+   SET inbox_emails = ARRAY['<production inbox>']
  WHERE id = 'mega-agency-conference-2026';
 ```
 
