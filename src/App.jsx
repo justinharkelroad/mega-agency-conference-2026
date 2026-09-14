@@ -52,7 +52,7 @@ const agenda = [
       { time: "11:20 am", title: "Utilizing Virtual Assistants", end: "12:00 pm", type: "Danielle Bazin" },
       { time: "12:00 pm", title: "Sponsor Introductions", end: "12:30 pm", type: "Laura Harris & Kristin Maxwell" },
       { time: "12:30 pm", title: "Sponsor Fair - Taste of Savannah Lunch", end: "2:00 pm", featured: true },
-      { time: "2:00 pm", title: "LeadGen from Real Estate Agents", end: "2:45 pm", type: "Paul Guerrero" },
+      { time: "2:00 pm", title: "Guest Speaker", end: "2:45 pm" },
       { time: "2:45 pm", title: "Agency Automation using AI", end: "3:30 pm", type: "Robert Zabbia" },
       { time: "3:30 pm", title: "Break", end: "3:45 pm" },
       { time: "3:45 pm", title: "Built to WIN", end: "4:30 pm", type: "Justin Farnsworth" },
