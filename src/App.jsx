@@ -51,7 +51,7 @@ const agenda = [
       { time: "11:00 am", title: "Utilizing Virtual Assistants", end: "11:40 am", type: "Danielle Bazin" },
       { time: "11:40 am", title: "LEADS - ChatGPT & Yelp", end: "12:00 pm", type: "Danielle Cameron" },
       { time: "12:00 pm", title: "Sponsor Introductions", end: "12:30 pm", type: "Laura Harris & Kristin Maxwell" },
-      { time: "12:30 pm", title: "Sponsor Fair - Taste of Savannah Lunch", end: "2:00 pm", featured: true },
+      { time: "12:30 pm", title: "Sponsor Fair - Taste of Savannah Lunch", end: "2:00 pm" },
       { time: "2:00 pm", title: "What's Working", end: "3:30 pm", type: "Mike Burke, Brooke Brollo, & Ben Bucher" },
       { time: "3:30 pm", title: "Break", end: "3:45 pm" },
       { time: "3:45 pm", title: "Built to WIN", end: "4:30 pm", type: "Justin Farnsworth" },
