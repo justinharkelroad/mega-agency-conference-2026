@@ -34,7 +34,7 @@ const agenda = [
     sessions: [
       { time: "12:00 pm", title: "Sponsor Set Up", end: "3:00 pm" },
       { time: "3:00 pm", title: "Attendee Registration & Sponsor Fair", end: "5:00 pm" },
-      { time: "6:00 pm", title: "Welcome Cocktail Reception", end: "9:00 pm", featured: true },
+      { time: "6:00 pm", title: "Welcome Cocktail Reception", end: "9:00 pm" },
     ],
   },
   {
