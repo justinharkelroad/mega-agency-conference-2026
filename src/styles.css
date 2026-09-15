@@ -381,6 +381,10 @@ p {
   letter-spacing: -0.07em;
 }
 
+.hero-mega {
+  font-weight: 800;
+}
+
 .hero-tagline {
   max-width: 760px;
   margin-top: 1.4rem;
@@ -655,13 +659,6 @@ p {
   background: var(--surface);
 }
 
-.session.featured {
-  color: var(--on-dark);
-  background: var(--navy);
-  padding-left: 1rem;
-  border-color: transparent;
-}
-
 .session-time {
   display: flex;
   align-items: flex-start;
@@ -669,11 +666,6 @@ p {
   color: var(--muted);
   font-size: 0.82rem;
   font-variant-numeric: tabular-nums;
-}
-
-.session.featured .session-time,
-.session.featured .session-title p {
-  color: var(--on-dark-muted);
 }
 
 .session-time span {
@@ -694,10 +686,6 @@ p {
   margin-top: 0.3rem;
   color: var(--muted);
   font-size: 0.78rem;
-}
-
-.session.featured > svg {
-  color: var(--accent);
 }
 
 .moment-section {
@@ -2131,11 +2119,6 @@ p {
 
   .session > svg {
     display: none;
-  }
-
-  .session.featured {
-    margin-inline: -0.35rem;
-    padding-right: 0.6rem;
   }
 
   .moment-section {

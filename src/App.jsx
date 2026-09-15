@@ -56,7 +56,7 @@ const agenda = [
       { time: "3:30 pm", title: "Break", end: "3:45 pm" },
       { time: "3:45 pm", title: "Built to WIN", end: "4:30 pm", type: "Justin Farnsworth" },
       { time: "4:30 pm", title: "Wrap Up / Flex", end: "5:00 pm", type: "Chris Burke & Ned Loyd" },
-      { time: "6:00 pm", title: "Sponsor Event - Savannah River Queen", end: "9:00 pm", type: "Justin Slocum", featured: true },
+      { time: "6:00 pm", title: "Sponsor Event - Savannah River Queen", end: "9:00 pm", type: "Justin Slocum" },
     ],
   },
   {
@@ -225,7 +225,7 @@ function Hero({ onJoinWaitlist }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
         >
-          2026 MEGA Agency Conference
+          2026 <strong className="hero-mega">MEGA</strong> Agency Conference
         </motion.h1>
         <motion.p
           className="hero-tagline"
@@ -337,10 +337,9 @@ function Agenda() {
               </div>
               <div className="session-list">
                 {current.sessions.map((session) => (
-                  <article className={session.featured ? "session featured" : "session"} key={`${session.time}-${session.title}`}>
+                  <article className="session" key={`${session.time}-${session.title}`}>
                     <div className="session-time"><Clock size={17} /><span>{session.time}<small>to {session.end}</small></span></div>
                     <div className="session-title"><h3>{session.title}</h3>{session.type && <p>{session.type}</p>}</div>
-                    {session.featured && <ArrowUpRight size={20} aria-hidden="true" />}
                   </article>
                 ))}
               </div>
