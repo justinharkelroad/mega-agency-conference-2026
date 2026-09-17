@@ -56,7 +56,7 @@ const agenda = [
       { time: "3:30 pm", title: "Break", end: "3:45 pm" },
       { time: "3:45 pm", title: "Built to WIN", end: "4:30 pm", type: "Justin Farnsworth" },
       { time: "4:30 pm", title: "Wrap Up / Flex", end: "5:00 pm", type: "Chris Burke & Ned Loyd" },
-      { time: "6:00 pm", title: "Sponsor Event - Savannah River Queen", end: "9:00 pm", type: "Agency For Sale, All Recruiting, Everquote & Wintrust" },
+      { time: "6:00 pm", title: "Sponsor Event - Savannah River Queen", end: "9:00 pm", type: "Agency For Sale, Everquote & Wintrust" },
     ],
   },
   {
