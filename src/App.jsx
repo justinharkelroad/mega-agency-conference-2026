@@ -233,7 +233,7 @@ function Hero({ onJoinWaitlist }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.16, ease: [0.16, 1, 0.3, 1] }}
         >
-          Built on Excellence, Focused on the Future.
+          Built on excellence, focused on the future.
         </motion.p>
         <motion.p
           className="hero-summary"
